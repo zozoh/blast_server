@@ -21,8 +21,8 @@ Blast 概述
         _id           : "78..90",
         referId       : "3e..ac",         # 引用消息 ID
         referNumber   : 897,              # 有多少消息引用它
-        pictures      : "79..45", 
-        text          : "Hello", 
-        createTime    :,
-        lastModifiedm :,
+        picture       : "79..45", 
+        content       : "Hello", 
+        createTime    : new Date(),       # Mongo 维护
+        lastModifiedm : new Date()        # Mongo 维护
     }
