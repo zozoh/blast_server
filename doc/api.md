@@ -1,7 +1,7 @@
 Blast API
 ===========
 
-## 读
+## 读 : /blast/query 
 
 *HTTP GET 参数:*
 
@@ -24,7 +24,7 @@ Blast API
         ]
     }
 
-## 新发 Blast
+## 新发 Blast : /blast/post
 
 *HTTP POST 参数*
 
@@ -44,7 +44,7 @@ Blast API
         ... // blast 的 JSON 字符串 带新的 blast ID
     }
 
-## 图，写
+## 图，写 : /blast/o/write
 
 *HTTP POST 参数*
 
@@ -64,7 +64,7 @@ Blast API
         size: 782
     }
 
-## 图，读
+## 图，读 : /blast/o/read
 
 *HTTP GET 参数*
 
@@ -80,7 +80,7 @@ Blast API
     BODY
     00 0e 34 34 67 ...
 
-## 转发
+## 转发 : /blast/refer
 
 *HTTP GET 参数:*
 
@@ -101,7 +101,7 @@ Blast API
         ]
     }
 
-## 趋势图表
+## 趋势图表 : /blast/trace
 
 *HTTP GET 参数:* 
 
