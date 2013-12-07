@@ -23,6 +23,7 @@ Blast 概述
         referNumber   : 897,              # 有多少消息引用它
         picture       : "79..45", 
         content       : "Hello", 
+        live          : 300,              # 生存的时间，单位秒
         createTime    : new Date(),       # Mongo 维护
         lastModifiedm : new Date()        # Mongo 维护
     }
