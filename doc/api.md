@@ -1,7 +1,7 @@
 Blast API
 ===========
 
-## 读 : /blast/query 
+## 读 : /api/blasts
 
 *HTTP GET 参数:*
 
@@ -24,7 +24,7 @@ Blast API
         ]
     }
 
-## 新发 Blast : /blast/post
+## 新发 Blast : /api/blasts/new
 
 *HTTP POST 参数*
 
@@ -44,7 +44,7 @@ Blast API
         ... // blast 的 JSON 字符串 带新的 blast ID
     }
 
-## 图，写 : /blast/o/write
+## 图，写 : /api/blasts/photo_upload
 
 *HTTP POST 参数*
 
@@ -60,11 +60,10 @@ Blast API
     HTTP 201
     {
         _id : "89..ae",
-        url : "http://blast.com/pic/raw/96/7788...88.jpg",
-        size: 782
+        picurl : "http://blast.com/pic/raw/96/79...45.jpg"
     }
 
-## 图，读 : /blast/o/read
+## 图，读 : $BLAST.picurl
 
 *HTTP GET 参数*
 
@@ -80,7 +79,7 @@ Blast API
     BODY
     00 0e 34 34 67 ...
 
-## 转发 : /blast/refer
+## 转发 : /api/blasts/reblast
 
 *HTTP GET 参数:*
 
@@ -101,7 +100,7 @@ Blast API
         ]
     }
 
-## 趋势图表 : /blast/trace
+## 趋势图表 : /api/blasts/graph
 
 *HTTP GET 参数:* 
 
