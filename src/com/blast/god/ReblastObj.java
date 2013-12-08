@@ -1,24 +1,29 @@
 package com.blast.god;
 
-import java.util.Date;
-
 import org.bson.types.ObjectId;
 import org.nutz.json.JsonField;
 import org.nutz.mongo.annotation.MoField;
 
 public class ReblastObj {
 
-    @JsonField(ignore = true)
+    @JsonField(forceString = true)
     private ObjectId _id;
 
     @MoField("ow")
     private String owner;
 
-    @MoField("pos")
-    private float[] position;
+    @JsonField(forceString = true)
+    @MoField("bid")
+    private ObjectId blastId;
+
+    @MoField("lo")
+    private double[] location;
 
     @MoField("ctm")
-    private Date createTime;
+    private long createTime;
+
+    @MoField("lm")
+    private long lastModified;
 
     public ObjectId get_id() {
         return _id;
@@ -36,20 +41,36 @@ public class ReblastObj {
         this.owner = owner;
     }
 
-    public float[] getPosition() {
-        return position;
+    public ObjectId getBlastId() {
+        return blastId;
     }
 
-    public void setPosition(float[] position) {
-        this.position = position;
+    public void setBlastId(ObjectId blastId) {
+        this.blastId = blastId;
     }
 
-    public Date getCreateTime() {
+    public double[] getLocation() {
+        return location;
+    }
+
+    public void setLocation(double[] location) {
+        this.location = location;
+    }
+
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+
+    public long getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(long lastModified) {
+        this.lastModified = lastModified;
     }
 
 }

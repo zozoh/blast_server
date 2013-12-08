@@ -1,11 +1,17 @@
 package com.blast.god;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.nutz.lang.Files;
+import org.nutz.lang.Streams;
 import org.nutz.lang.Strings;
 import org.nutz.mongo.ZMoCo;
 import org.nutz.mongo.ZMoDB;
+import org.nutz.mongo.ZMoDoc;
 import org.nutz.mongo.ZMongo;
 import org.nutz.web.WebConfig;
 
@@ -13,6 +19,31 @@ public class BlastConfig extends WebConfig {
 
     public BlastConfig(String path) {
         super(path);
+    }
+
+    private BlastUser[] usrs;
+
+    public BlastUser[] getUsers() throws IOException {
+        if (null == usrs) {
+            synchronized (this) {
+                if (null == usrs) {
+                    List<BlastUser> list = new LinkedList<BlastUser>();
+                    String path = getHome().getAbsolutePath()
+                                  + "/"
+                                  + get("blast-mock-path-user");
+                    BufferedReader br = Streams.buffr(Streams.fileInr(path));
+                    String line = null;
+                    while (null != (line = br.readLine())) {
+                        BlastUser bu = new BlastUser();
+                        bu.setName(Strings.trim(line));
+                        bu.setNumber(list.size() + 1);
+                        list.add(bu);
+                    }
+                    usrs = list.toArray(new BlastUser[list.size()]);
+                }
+            }
+        }
+        return usrs;
     }
 
     private File home;
@@ -61,7 +92,8 @@ public class BlastConfig extends WebConfig {
         ZMoCo mco;
         if (!zdb.cExists(co)) {
             mco = zdb.createCollection(co, null);
-            // TODO 这里加入索引的设置 ...
+            // 这里加入索引的设置 ...
+            mco.ensureIndex(ZMoDoc.NEW("{lo:'2d'}"));
         } else {
             mco = zdb.c(co);
         }

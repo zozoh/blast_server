@@ -1,7 +1,5 @@
 package com.blast.god;
 
-import java.util.Date;
-
 import org.bson.types.ObjectId;
 import org.nutz.json.JsonField;
 import org.nutz.mongo.annotation.MoEnum;
@@ -9,19 +7,18 @@ import org.nutz.mongo.annotation.MoField;
 
 public class BlastObj {
 
-    @JsonField(ignore = false)
+    @JsonField(forceString = true)
     private ObjectId _id;
 
     @MoField("ow")
     private String owner;
 
-    @MoField("pos")
-    private float[] position;
+    @MoField("lo")
+    private double[] location;
 
     @MoField("rnb")
     private int reblaNumber;
 
-    @JsonField(ignore = true)
     @MoField("pic")
     private String picture;
 
@@ -33,10 +30,12 @@ public class BlastObj {
     private int live;
 
     @MoField("ctm")
-    private Date createTime;
+    private long createTime;
 
     @MoField("lm")
-    private Date lastModified;
+    private long lastModified;
+
+    private String picurl;
 
     public ObjectId get_id() {
         return _id;
@@ -54,12 +53,12 @@ public class BlastObj {
         this.owner = owner;
     }
 
-    public float[] getPosition() {
-        return position;
+    public double[] getLocation() {
+        return location;
     }
 
-    public void setPosition(float[] position) {
-        this.position = position;
+    public void setLocation(double[] position) {
+        this.location = position;
     }
 
     public int getReblaNumber() {
@@ -94,20 +93,28 @@ public class BlastObj {
         this.live = live;
     }
 
-    public Date getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getLastModified() {
+    public long getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public String getPicurl() {
+        return picurl;
+    }
+
+    public void setPicurl(String picurl) {
+        this.picurl = picurl;
     }
 
 }

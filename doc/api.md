@@ -1,6 +1,33 @@
 Blast API
 ===========
 
+## 注册 : /api/signup
+
+*HTTP GET 参数:*
+
+    uid : 8876..912         # 用户的 ID，一般是个 UUID
+
+*HTTP 返回*
+
+    HTTP 200
+    {
+        ok : true,
+        msg : null,
+        data : "胡海"
+    }
+
+
+## 头像 : /api/avatar
+
+*HTTP GET 参数:*
+
+    uid : 8876..912         # 用户的 ID，一般是个 UUID
+
+*HTTP 返回*
+
+    ~~~ 就是图片的内容啦  >_< ~~~
+
+
 ## 读 : /api/blasts
 
 *HTTP GET 参数:*
@@ -59,8 +86,12 @@ Blast API
 
     HTTP 201
     {
-        _id : "89..ae",
-        picurl : "http://blast.com/pic/raw/96/79...45.jpg"
+        ok : true,
+        msg : null,
+        data : {
+            _id : "89..ae",
+            picurl : "http://blast.com/pic/raw/96/79...45.jpg"
+        }
     }
 
 ## 图，读 : $BLAST.picurl
@@ -117,6 +148,8 @@ Blast API
             ...
         ]
     }
+
+## 用户伪注册 
 
 
 
