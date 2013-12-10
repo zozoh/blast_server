@@ -67,32 +67,32 @@ public class BlastMockModule extends AbstractBlastModule {
             n = 5;
         List<ReblastObj> list = new ArrayList<ReblastObj>(n);
 
-        // 得到一个要 blast 的对象
-        BlastObj bo = null;
-        if (!Strings.isBlank(bid)) {
-            ZMoDoc doc = coB.findOne(ZMoDoc.ID(new ObjectId(bid)));
-            if (null != doc)
-                bo = mo.fromDocToObj(doc, BlastObj.class);
-        }
-        if (null == bo) {
-            long count = coB.count();
-            DBCursor cu = coB.find();
-            int skip = R.random(0, (int) count - 1);
-            cu.skip(skip);
-            DBObject o = cu.next();
-            bo = mo.fromDocToObj(o, BlastObj.class);
-        }
-
         for (int i = 0; i < n; i++) {
+            // 得到一个要 blast 的对象
+            BlastObj bo = null;
+            if (!Strings.isBlank(bid)) {
+                ZMoDoc doc = coB.findOne(ZMoDoc.ID(new ObjectId(bid)));
+                if (null != doc)
+                    bo = mo.fromDocToObj(doc, BlastObj.class);
+            }
+            if (null == bo) {
+                long count = coB.count();
+                DBCursor cu = coB.find();
+                int skip = R.random(0, (int) count - 1);
+                cu.skip(skip);
+                DBObject o = cu.next();
+                bo = mo.fromDocToObj(o, BlastObj.class);
+            }
+
             // 得到一个随机用户
             BlastUser bu = users[R.random(0, users.length - 1)];
 
             // 得到两个随机数
             double s = (double) R.random(-10, 10);
-            double x = distance + 10.0 / (s == 0.0 ? 1.0 : s);
+            double x = distance + 1.0 / (s == 0.0 ? 1.0 : s);
 
             s = (double) R.random(-10, 10);
-            double y = distance + 10.0 / (s == 0.0 ? 1.0 : s);
+            double y = distance + 1.0 / (s == 0.0 ? 1.0 : s);
 
             // 发送请求
             String url = apiUrl + "/api/blasts/reblast";
@@ -107,8 +107,6 @@ public class BlastMockModule extends AbstractBlastModule {
             Sender sender = Sender.create(req, 10000);
             Response resp = sender.send();
             String retxt = resp.getContent();
-
-            System.out.println(retxt);
 
             NutMap map = Json.fromJson(NutMap.class, retxt);
             NutMap data = map.getAs("data", NutMap.class);

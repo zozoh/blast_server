@@ -35,7 +35,15 @@ public class BlastObj {
     @MoField("lm")
     private long lastModified;
 
-    private String picurl;
+    private String showDate;
+
+    public String getShowDate() {
+        return showDate;
+    }
+
+    public void setShowDate(String showDate) {
+        this.showDate = showDate;
+    }
 
     public ObjectId get_id() {
         return _id;
@@ -107,14 +115,6 @@ public class BlastObj {
 
     public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
-    }
-
-    public String getPicurl() {
-        return picurl;
-    }
-
-    public void setPicurl(String picurl) {
-        this.picurl = picurl;
     }
 
 }

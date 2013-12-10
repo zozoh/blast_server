@@ -3,6 +3,7 @@ package com.blast.god.module;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,6 +45,13 @@ public class BlastApiModule extends AbstractBlastModule {
 
     @At("/signup")
     public String signup(@Param("uid") String uid) {
+        // 是不是以前分配过呀 >:D
+        for (BlastUser u : users) {
+            if (Strings.equals(uid, u.getID())) {
+                return u.getName();
+            }
+        }
+        // 分配个新的
         for (BlastUser u : users) {
             if (Strings.isBlank(u.getID())) {
                 u.setID(uid);
@@ -55,9 +63,9 @@ public class BlastApiModule extends AbstractBlastModule {
 
     @At("/avatar")
     @Ok("raw:image/jpeg")
-    public InputStream avatar(@Param("uid") String uid) {
+    public InputStream avatar(@Param("unm") String unm) {
         for (BlastUser u : users) {
-            if (Strings.equals(uid, u.getID())) {
+            if (Strings.equals(unm, u.getName())) {
                 String ph = "avatars/user" + u.getNumber() + ".png";
                 File fAvata = Files.getFile(home, ph);
                 if (fAvata.exists()) {
@@ -111,13 +119,18 @@ public class BlastApiModule extends AbstractBlastModule {
         // 遍历
         List<BlastObj> list = new LinkedList<BlastObj>();
         DBCursor cu = coB.find(q);
-        cu.sort(ZMoDoc.NEW("{lm:1,rnb:1,lv:1}"));
+        cu.sort(ZMoDoc.NEW("{lm:-1}"));
         cu.limit(n);
         while (cu.hasNext()) {
             DBObject o = cu.next();
             BlastObj bo = mo.fromDocToObj(o, BlastObj.class);
+            Date d = new Date(bo.getLastModified());
+            bo.setShowDate(Times.format("dd/MM HH:mm", d));
             list.add(bo);
         }
+
+        if (log.isInfoEnabled())
+            log.infof(" get %d blasts", list.size());
 
         return list;
 
@@ -126,10 +139,13 @@ public class BlastApiModule extends AbstractBlastModule {
     @AdaptBy(type = JsonAdaptor.class)
     @At("/blasts/new")
     public BlastObj create_blast(BlastObj bo) {
+        BlastUser bu = users[R.random(0, users.length - 1)];
+
         bo.setLive(360);
         bo.setReblaNumber(0);
         bo.setCreateTime(Times.now().getTime());
         bo.setLastModified(bo.getCreateTime());
+        bo.setOwner(bu.getName());
 
         ZMoDoc doc = mo.toDoc(bo).genID();
         coB.save(doc);

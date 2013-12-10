@@ -21,7 +21,7 @@ Blast API
 
 *HTTP GET 参数:*
 
-    uid : 8876..912         # 用户的 ID，一般是个 UUID
+    unm : "zozoh"         # 用户的名称，是owner
 
 *HTTP 返回*
 

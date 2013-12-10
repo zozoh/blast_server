@@ -18,10 +18,10 @@
 <!-- ==================================================== -->
 <div id="dr" class="dfld">
 <textarea class="params">{
-    bid : '52a39d00036448024ebe9760',
-    lon : 12.34221,
-    lat : 9.321239,
-    distance : 2.0,
+    dbid : '52a3f8750364b62bd5d1b4bc',
+    lon : 116.41805555555555,
+    lat : 39.91828611111111,
+    distance : 0.3,
     n : 10
 }</textarea>
 <div class="opt">
